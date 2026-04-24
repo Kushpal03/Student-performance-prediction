@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
-
+import time
 st.set_page_config(page_title = 'Sudent PASS / FAIL Predictor' , page_icon= '🎓')
 st.title('🎓 Student Performance Predictor')
 st.write("Enter a student's lifestyle and studying metrics below to predict their exam outcomes. ")
@@ -31,23 +31,26 @@ with col2:
     internet_quality = st.slider("STUDENT's Internet Quality",step=1,min_value = 1 , max_value=5)
 
 if st.button('Predict Outcome',type='primary'):
-    new_student =  pd.DataFrame({
-    'gender':[gen],
-    'age':[age],
-    'parental_education_level':[parent_edu],
-    'family_income':[family_income],
-    'daily_study_hours':[study_time],
-    'attendance_rate':[attendance/100],
-    'sleep_hours':[sleep_time],
-    'stress_level':[stress],
-    'motivation_score':[motivation],
-    'private_tutoring':[private_tutor],
-    'internet_quality':[internet_quality],
-}) 
-    prediction = deployed_model.predict(new_student)
-    st.markdown('---')
 
-    display_name=nam if nam else 'This Student'
+    with st.spinner('Analyzing student data ...'):
+        time.sleep(1)
+        new_student =  pd.DataFrame({
+        'gender':[gen],
+        'age':[age],
+        'parental_education_level':[parent_edu],
+        'family_income':[family_income],
+        'daily_study_hours':[study_time],
+        'attendance_rate':[attendance/100],
+        'sleep_hours':[sleep_time],
+        'stress_level':[stress],
+        'motivation_score':[motivation],
+        'private_tutoring':[private_tutor],
+        'internet_quality':[internet_quality],
+    }) 
+        prediction = deployed_model.predict(new_student)
+        st.markdown('---')
+
+        display_name=nam if nam else 'This Student'
 
     if prediction[0] == 1:
 
@@ -55,3 +58,5 @@ if st.button('Predict Outcome',type='primary'):
         st.balloons()
     else:
         st.error(f"⚠️ **PREDICTION: FAIL** - {display_name} requires some guidance.")
+
+
