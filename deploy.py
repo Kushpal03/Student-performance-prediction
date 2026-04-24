@@ -59,4 +59,11 @@ if st.button('Predict Outcome',type='primary'):
     else:
         st.error(f"⚠️ **PREDICTION: FAIL** - {display_name} requires some guidance.")
 
+st.divider()
+st.subheader('Have an entire Class Roater?')
+if st.button('Go to Bulk Prediction page'):
+    st.switch_page('pages/bulk.py')
+
+
+
 
