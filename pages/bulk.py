@@ -4,7 +4,10 @@ import time
 import joblib
 
 model=joblib.load('model.pkl')
-st.set_page_config(initial_sidebar_state='collapsed')
+st.set_page_config(page_title='Bulk Predict',initial_sidebar_state='collapsed')
+
+if st.button('🛖 Back to Home'):
+    st.switch_page("deploy.py")
 
 @st.cache_data
 def load_data(file):

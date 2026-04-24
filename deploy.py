@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import time
-st.set_page_config(page_title = 'Sudent PASS / FAIL Predictor' , page_icon= '🎓')
+st.set_page_config(page_title = 'Sudent PASS / FAIL Predictor' , page_icon= '🎓',initial_sidebar_state='collapsed')
 st.title('🎓 Student Performance Predictor')
 st.write("Enter a student's lifestyle and studying metrics below to predict their exam outcomes. ")
 
