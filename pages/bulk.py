@@ -57,13 +57,23 @@ if uploaded_file is not None:
             predictions = model.predict(predict_data)
             final_results = bulk_data.copy()
             final_results['Predicted Outcome'] = predictions
-
+            final_results['Predicted Outcome'] = final_results['Predicted Outcome'].map({1 : 'Pass' , 0 : 'Fail'})
             st.success('Predictions Complete')
             st.dataframe(final_results.head(10))
             st.balloons()
 
             csv_results = final_results.to_csv(index=False).encode('utf-8')
+            
+
+            
+            res_file_name = st.text_input('Enter the Result File Name',value='Class Results')
+            
+            if not res_file_name.endswith('.csv'):
+                final_file_name = res_file_name + '.csv'
+            else:
+                final_file_name = res_file_name
+
             st.download_button(label='⬇️ Download the Results for the Class',
-                               data=csv_results ,
-                               file_name='predicted_class_roster.csv',
-                               mime='text/csv')
+                            data=csv_results ,
+                            file_name=final_file_name,
+                            mime='text/csv')
